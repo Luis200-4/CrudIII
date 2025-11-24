@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administración de Estudiantes</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <h1>Administración de Estudiantes</h1>
+
+  <div class="menu">
+    <button onclick="mostrar('crear')">Crear estudiante</button>
+    <button onclick="listarEstudiantes()">Listar estudiantes</button>
+    <button onclick="mostrar('eliminar')">Eliminar estudiante</button>
+  </div>
+
+  <!-- CREAR ESTUDIANTE -->
+  <div id="crear" class="seccion">
+    <h2>Crear estudiante</h2>
+    <form id="formCrear">
+      <label>Nombres:</label>
+      <input type="text" id="nombres" required>
+
+      <label>Apellidos:</label>
+      <input type="text" id="apellidos" required>
+
+      <label>Edad:</label>
+      <input type="number" id="edad" required>
+
+      <label>Carrera:</label>
+      <select id="carrera"></select>
+
+      <label>Estrato:</label>
+      <input type="number" id="estrato" required>
+
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+
+  <!-- LISTAR ESTUDIANTES -->
+  <div id="listar" class="seccion">
+    <h2>Lista de estudiantes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Edad</th>
+          <th>Carrera</th>
+          <th>Estrato</th>
+        </tr>
+      </thead>
+      <tbody id="tablaEstudiantes"></tbody>
+    </table>
+  </div>
+
+  <!-- ELIMINAR ESTUDIANTE -->
+  <div id="eliminar" class="seccion">
+    <h2>Eliminar estudiante</h2>
+    <label>ID del estudiante:</label>
+    <input type="number" id="idEliminar">
+    <button onclick="eliminarEstudiante()">Eliminar</button>
+  </div>
+
+  <script>
+    let estudiantes = [];
+
+    // Cargar estudiantes desde localStorage al iniciar
+    window.onload = () => {
+      const data = localStorage.getItem('estudiantes');
+      if (data) estudiantes = JSON.parse(data);
+      cargarCarreras();
+    };
+
+    function mostrar(seccion) {
+      document.querySelectorAll('.seccion').forEach(div => div.style.display = 'none');
+      document.getElementById(seccion).style.display = 'block';
+    }
+
+    // Cargar carreras desde Mockable.io
+    function cargarCarreras() {
+      fetch('https://demo0304701.mockable.io/parcial3')
+        .then(res => res.json())
+        .then(data => {
+          const select = document.getElementById('carrera');
+          data.carreras.forEach(c => {
+            let op = document.createElement('option');
+            op.value = c;
+            op.textContent = c;
+            select.appendChild(op);
+          });
+        });
+    }
+
+    // Crear estudiante
+    document.getElementById('formCrear').addEventListener('submit', e => {
+      e.preventDefault();
+
+      const nuevo = {
+        id: estudiantes.length,
+        nombres: document.getElementById('nombres').value,
+        apellidos: document.getElementById('apellidos').value,
+        edad: document.getElementById('edad').value,
+        carrera: document.getElementById('carrera').value,
+        estrato: document.getElementById('estrato').value
+      };
+
+      estudiantes.push(nuevo);
+      localStorage.setItem('estudiantes', JSON.stringify(estudiantes));
+
+      alert('Estudiante creado con éxito');
+      e.target.reset();
+    });
+
+    // Listar estudiantes
+    function listarEstudiantes() {
+      mostrar('listar');
+      const tbody = document.getElementById('tablaEstudiantes');
+      tbody.innerHTML = '';
+
+      estudiantes.forEach(est => {
+        let fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td>${est.id}</td>
+          <td>${est.nombres}</td>
+          <td>${est.apellidos}</td>
+          <td>${est.edad}</td>
+          <td>${est.carrera}</td>
+          <td>${est.estrato}</td>
+        `;
+        tbody.appendChild(fila);
+      });
+    }
+
+    // Eliminar estudiante
+    function eliminarEstudiante() {
+      const id = parseInt(document.getElementById('idEliminar').value);
+      if (isNaN(id) || id < 0 || id >= estudiantes.length) {
+        alert('ID no válido');
+        return;
+      }
+
+      estudiantes.splice(id, 1);
+
+      estudiantes = estudiantes.map((e, i) => ({ ...e, id: i }));
+
+      localStorage.setItem('estudiantes', JSON.stringify(estudiantes));
+
+      alert('Estudiante eliminado');
+      document.getElementById('idEliminar').value = '';
+    }
+  </script>
+</body>
+</html>

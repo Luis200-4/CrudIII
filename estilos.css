@@ -1,0 +1,51 @@
+body { font-family: Arial, sans-serif; margin: 20px; background: #f3f3f3; }
+
+h1 { 
+    text-align: center;
+ }
+
+.menu { 
+    display: flex;
+     gap: 15px; justify-content:
+      center; margin-bottom: 20px;
+     }
+
+button { 
+    padding: 10px 20px; 
+    cursor: pointer; border: none; 
+    background: #007BFF; color: white;
+    border-radius: 5px; 
+}
+
+button:hover { background: #0056b3; }
+
+.seccion { 
+    display: none; 
+    background: white; 
+    padding: 20px; 
+    border-radius: 5px; 
+}
+
+table { 
+     width: 100%;
+     border-collapse:collapse;
+     margin-top: 20px; 
+    }
+
+th, td { 
+     padding: 10px;
+     border: 1px solid #ccc;
+     text-align: center; 
+    }
+
+input, select 
+{
+    width: 100%; 
+    padding: 8px; 
+    margin: 8px 0; 
+}
+
+
+
+
+
