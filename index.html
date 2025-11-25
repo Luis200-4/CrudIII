@@ -15,7 +15,7 @@
     <button onclick="mostrar('eliminar')">Eliminar estudiante</button>
   </div>
 
-  <!-- CREAR ESTUDIANTE -->
+  
   <div id="crear" class="seccion">
     <h2>Crear estudiante</h2>
     <form id="formCrear">
@@ -38,7 +38,7 @@
     </form>
   </div>
 
-  <!-- LISTAR ESTUDIANTES -->
+  
   <div id="listar" class="seccion">
     <h2>Lista de estudiantes</h2>
     <table>
@@ -56,7 +56,7 @@
     </table>
   </div>
 
-  <!-- ELIMINAR ESTUDIANTE -->
+
   <div id="eliminar" class="seccion">
     <h2>Eliminar estudiante</h2>
     <label>ID del estudiante:</label>
@@ -66,8 +66,9 @@
 
   <script>
     let estudiantes = [];
-
-    // Cargar estudiantes desde localStorage al iniciar
+  
+     
+    
     window.onload = () => {
       const data = localStorage.getItem('estudiantes');
       if (data) estudiantes = JSON.parse(data);
@@ -79,7 +80,7 @@
       document.getElementById(seccion).style.display = 'block';
     }
 
-    // Cargar carreras desde Mockable.io
+    
     function cargarCarreras() {
       fetch('https://demo0304701.mockable.io/parcial3')
         .then(res => res.json())
@@ -94,7 +95,7 @@
         });
     }
 
-    // Crear estudiante
+    
     document.getElementById('formCrear').addEventListener('submit', e => {
       e.preventDefault();
 
@@ -114,7 +115,7 @@
       e.target.reset();
     });
 
-    // Listar estudiantes
+    
     function listarEstudiantes() {
       mostrar('listar');
       const tbody = document.getElementById('tablaEstudiantes');

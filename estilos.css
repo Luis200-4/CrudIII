@@ -1,4 +1,4 @@
-body { font-family: Arial, sans-serif; margin: 20px; background: #f3f3f3; }
+body { font-family: Arial, sans-serif; margin: 20px; background: #e80404; }
 
 h1 { 
     text-align: center;
@@ -13,11 +13,11 @@ h1 {
 button { 
     padding: 10px 20px; 
     cursor: pointer; border: none; 
-    background: #007BFF; color: white;
+    background: #3312ee; color: white;
     border-radius: 5px; 
 }
 
-button:hover { background: #0056b3; }
+button:hover { background: #37dc6b; }
 
 .seccion { 
     display: none; 
